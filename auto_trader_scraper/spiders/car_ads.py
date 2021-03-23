@@ -46,7 +46,8 @@ class CarSpider(scrapy.Spider):
                 'title': ad.xpath('.//h2[contains(@class, "listing-title")]/a/text()').get(),
                 'url': ad.xpath('.//h2[contains(@class, "listing-title")]/a/@href').get(),
                 #'ad_id': ad.xpath('.//h2[contains(@class, "listing-title")]/a/@href').re(r'(?:advert\/)(.*)(?:\?)'),
-                'ad_id': ad.xpath('.//h2[contains(@class, "listing-title")]/a/@href').re(r'(?:\/)([0-9]{10,20})(?:\?)'),
+                #'ad_id': ad.xpath('.//h2[contains(@class, "listing-title")]/a/@href').re(r'(?:\/)([0-9]{10,20})(?:\?)'),
+		'ad_id': ad.xpath('@id').get(),
                 'number_images': ad.xpath('.//div[contains(@class, "listing-image-count")]/text()')[1].re(r'\d+'),
                 'attention_grabber': ad.xpath('.//p[contains(@class, "listing-attention-grabber")]/text()').get(),
                 'extra_detail': ad.xpath('.//ul[contains(@class, "listing-extra-detail")]/li/text()').get(),
@@ -63,5 +64,5 @@ class CarSpider(scrapy.Spider):
                 'listing_description': ad.xpath('.//p[contains(@class, "listing-description")]/text()').get(),
                 'seller_type': seller_type,
                 'miles_from_wc2r': ad.xpath('.//div[contains(@class, "seller-location")]/text()').re(r'\d+'),
-                'price': ad.xpath('.//div[contains(@class, "vehicle-price")]/text()').get()
+                'price': ad.xpath('.//div[contains(@class, "product-card-pricing__price")]//span/text()').get()
             }
